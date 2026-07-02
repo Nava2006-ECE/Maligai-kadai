@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>மளிகை கடை Stock Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Noto+Sans+Tamil:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="spine"></div>
+
+<div class="wrap">
+
+  <header class="cover">
+    <div class="cover-inner">
+      <p class="eyebrow">கணக்கு பதிவேடு &middot; Stock Register</p>
+      <h1>மளிகை கடை <span class="amp">&amp;</span> Stock</h1>
+      <p class="sub">உங்க கடை சாமான்கள எல்லாம் இங்க பதிவு பண்ணி, குறைவா இருக்குறதுக்கு உடனே தெரிஞ்சுக்குங்க.</p>
+    </div>
+  </header>
+
+  <section class="ledger-stats" id="stats">
+    <div class="stat">
+      <span class="stat-num" id="statCount">0</span>
+      <span class="stat-label">மொத்த பொருட்கள்<br><small>Total items</small></span>
+    </div>
+    <div class="stat">
+      <span class="stat-num" id="statValue">₹0</span>
+      <span class="stat-label">மொத்த மதிப்பு<br><small>Total stock value</small></span>
+    </div>
+    <div class="stat stat-warn">
+      <span class="stat-num" id="statLow">0</span>
+      <span class="stat-label">குறைவான ஸ்டாக்<br><small>Low stock</small></span>
+    </div>
+  </section>
+
+  <section class="toolbar">
+    <input type="text" id="searchBox" placeholder="பொருள் தேடுங்க... (search item)" autocomplete="off">
+    <div class="filters" id="filters">
+      <button class="chip active" data-filter="all">அனைத்தும்</button>
+      <button class="chip" data-filter="low">குறைவு (Low)</button>
+    </div>
+    <button class="btn btn-primary" id="openAddBtn">+ புதிய பொருள்</button>
+  </section>
+
+  <section class="add-card" id="addCard" hidden>
+    <form id="itemForm">
+      <div class="grid">
+        <label>
+          பொருள் பெயர் <span class="en">(Item name)</span>
+          <input type="text" id="fName" required placeholder="எ.கா. தூர் பருப்பு">
+        </label>
+        <label>
+          பிரிவு <span class="en">(Category)</span>
+          <input type="text" id="fCategory" list="catList" placeholder="எ.கா. பருப்பு வகைகள்">
+          <datalist id="catList"></datalist>
+        </label>
+        <label>
+          அளவு <span class="en">(Quantity)</span>
+          <input type="number" id="fQty" step="0.01" min="0" required placeholder="0">
+        </label>
+        <label>
+          அலகு <span class="en">(Unit)</span>
+          <select id="fUnit">
+            <option>kg</option><option>g</option><option>litre</option>
+            <option>ml</option><option>பாக்கெட்</option><option>பீஸ்</option>
+            <option>டஜன்</option><option>பாக்</option>
+          </select>
+        </label>
+        <label>
+          விலை / அலகு <span class="en">(Price per unit ₹)</span>
+          <input type="number" id="fPrice" step="0.01" min="0" placeholder="0">
+        </label>
+        <label>
+          குறைவு எச்சரிக்கை <span class="en">(Low-stock alert below)</span>
+          <input type="number" id="fThreshold" step="0.01" min="0" placeholder="5">
+        </label>
+      </div>
+      <input type="hidden" id="fId">
+      <div class="form-actions">
+        <button type="button" class="btn btn-ghost" id="cancelBtn">ரத்து செய்</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">சேமி (Save)</button>
+      </div>
+    </form>
+  </section>
+
+  <section id="categories"></section>
+
+  <p class="empty-state" id="emptyState" hidden>
+    இன்னும் பொருள் எதுவும் சேர்க்கல. மேலே <strong>“+ புதிய பொருள்”</strong> பட்டன் அழுத்தி ஆரம்பிக்கலாம்.
+  </p>
+
+  <footer class="foot">
+    <div class="foot-actions">
+      <button class="btn btn-ghost" id="exportBtn">⭳ Backup (JSON)</button>
+      <label class="btn btn-ghost file-btn">
+        ⭱ Restore
+        <input type="file" id="importInput" accept="application/json" hidden>
+      </label>
+    </div>
+    <p class="foot-note">தரவு இந்த device/browser-ல் மட்டும் சேமிக்கப்படும் &middot; Data stays on this device only</p>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
